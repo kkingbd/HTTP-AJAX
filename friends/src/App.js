@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
 import Friends from './components/Friends';
+import FriendsForm from './components/FriendsForm';
 class App extends Component {
     constructor(){
       super();
@@ -23,8 +24,8 @@ class App extends Component {
       render(){
         return(
           <div className= 'App'>
-              {this.state.friends.map(friend=> 
-                <Friends friends = {friend} />
+                <Friends friends = {this.state.friends} />
+                <FriendsForm form = {this.form} />
               )}
           </div>
         );
