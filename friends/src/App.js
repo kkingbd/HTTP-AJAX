@@ -20,12 +20,44 @@ class App extends Component {
                 console.log('Server Error', err)
             })
       }
+      formTo = friend => {
+        axios
+        .post('http://localhost:5000/friends', friend)
+        .then(response =>{
+          this.setState({friends:response.data})
+          console.log(response)
+        })
+        .catch(error=>{
+          console.log(error)
+        })
+      }
+
+      addFriend = (friend) =>{
+        axios
+          .post('http://localhost:5000/friends', friend)
+          .then(res => (
+            this.setState(
+              {
+                  friends : res.data,
+              }) 
+            ))
+            .catch(err => console.log(err))
+      }
+      deleteFriend =(friend)=>{
+        axios
+         .delete(`http://localhost:5000/friends/${id}`)
+         .then(res=>{
+           this.setState({
+             friends: res.data,
+           })
+         })
+      }
       
       render(){
         return(
           <div className= 'App'>
                 <Friends friends = {this.state.friends} />
-                <FriendsForm form = {this.form} />
+                <FriendsForm formTo = {this.formTo} />
               )}
           </div>
         );

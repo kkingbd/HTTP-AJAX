@@ -5,13 +5,14 @@ class FriendsForm extends Component {
     super(props)
     this.state = {
         newFriend: {
-        id: '',
-        name: '',
-        age: '',
-        email: '',
+            id: '',
+            name: '',
+            age: '',
+            email: '',
         }
       }
     }
+
     handleChange = event => {
         this.setState({
             newFriend: {
@@ -20,12 +21,26 @@ class FriendsForm extends Component {
             }
         })
     }
+    onSubmitTo = e=>{
+        e.preventdefault();
+        this.setState({
+            this.props.formTo(this.state.newFriend);
+            this.setState({
+                newFriend: {
+                    id: '',
+                    name: '',
+                    age: '',
+                    email: '',
+                }
+            })
+       })
+    }
 
     render() {
         return (
         <div classname= 'NewForm'>
           <h2> Add new Friend </h2>
-            <form>
+            <form onSubmit = {this.onSubmitTo}>
                 <input
                     type = 'text'
                     name ='name'
