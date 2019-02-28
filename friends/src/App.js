@@ -1,64 +1,83 @@
 import React, { Component } from 'react';
+import {Route, Link, Switch} from 'react-router-dom';
 import './App.css';
 import axios from 'axios';
-import Friends from './components/Friends';
+////////////////////////////////////////////////////////////////////////
+import FriendList from './components/FriendList';
 import FriendsForm from './components/FriendsForm';
+import Friends from './components/Friends';
+////////////////////////////////////////////////////////////////////////
 class App extends Component {
     constructor(){
       super();
       this.state = {
-        friends: []
+        friends: [],
+        newFriend: {
+          name: '',
+          age: 0,
+          email: '',
+        },
       }
     }
+////////////////////////////////////////////////////////////////////////
     componentDidMount(){
         axios
             .get('http://localhost:5000/friends')
-            .then(response => {
-                this.setState({friends: response.data});
+            .then(({data})=> {
+                this.setState({
+                  friends : data});
             })
             .catch(err => {
                 console.log('Server Error', err)
             })
       }
-      formTo = friend => {
-        axios
-        .post('http://localhost:5000/friends', friend)
-        .then(response =>{
-          this.setState({friends:response.data})
-          console.log(response)
-        })
-        .catch(error=>{
-          console.log(error)
-        })
+////////////////////////////////////////////////////////////////////////
+      handleChange = e => {
+        e.preventDefault();
+        const { name, value } = e.target;
+        this.setState({ newFriend: { ...this.state.newFriend, [name]: value, } });
       }
-
+////////////////////////////////////////////////////////////////////////
       addFriend = (friend) =>{
         axios
           .post('http://localhost:5000/friends', friend)
-          .then(res => (
-            this.setState(
-              {
-                  friends : res.data,
-              }) 
-            ))
-            .catch(err => console.log(err))
+          .then(res => { this.setState({friends : res.data,}) })
+          .catch(console.log)
       }
+////////////////////////////////////////////////////////////////////////
       deleteFriend =(friend)=>{
         axios
-         .delete(`http://localhost:5000/friends/${id}`)
-         .then(res=>{
-           this.setState({
-             friends: res.data,
-           })
-         })
+         .delete(`http://localhost:5000/friends/${friend.id}`)
+         .then(res=> { this.setState({friends: res.data,}) })
+         .catch(console.log);
+      };
+////////////////////////////////////////////////////////////////////////
+      updateFriend = (friend, id) =>{
+        axios
+          .put(`http://localhost:5000/friends/${friend.id}`, friend)
+          .then(res => { this.setState({friends : res.data,}) })
+          .catch(console.log);
       }
-      
+////////////////////////////////////////////////////////////////////////  
       render(){
         return(
           <div className= 'App'>
-                <Friends friends = {this.state.friends} />
-                <FriendsForm formTo = {this.formTo} />
+            <Route exact path= '/friends' render = {props=>(
+                <FriendList 
+                    {...props} 
+                    friends = {this.state.friends}
+                    updateFriend ={this.updateFriend}
+                    deleteFriend= {this.deleteFriend}
+                 />
               )}
+            />
+            {/* <Route exact path="/friends/:id" render={props => (
+                <Friends
+                  {...props}
+                  friend={this.state.friends}
+                  updateFriend={this.updateFriend}
+                  deleteFriend={this.deleteFriend}
+            /> */}
           </div>
         );
       }
