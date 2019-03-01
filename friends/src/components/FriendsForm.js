@@ -21,7 +21,7 @@ class FriendsForm extends Component {
                         value = {this.props.newFriend.age}
 
                     />
-                    <input
+                    <input 
                         type = 'text'
                         name ='email'
                         placeholder = 'email'
@@ -29,7 +29,7 @@ class FriendsForm extends Component {
                         value = {this.props.newFriend.email}
 
                     />
-                    <button type="submit" onClick={this.props.addFriend}>
+                    <button type="submit" onClick={() => this.props.addFriend(this.props.newFriend)}>
                         Add New Friend
                     </button>
                 </form>  

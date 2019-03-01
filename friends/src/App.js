@@ -14,7 +14,7 @@ class App extends Component {
         friends: [],
         newFriend: {
           name: '',
-          age: 0,
+          age: null,
           email: '',
         },
       }
@@ -41,14 +41,15 @@ class App extends Component {
       addFriend = (friend) =>{
         axios
           .post('http://localhost:5000/friends', friend)
-          .then(res => { this.setState({friends : res.data,}) })
-          .catch(console.log)
-      }
+          .then(res=> { this.setState({friends: res.data}) ;
+         this.props.history.push("/friends" );})
+      };
 ////////////////////////////////////////////////////////////////////////
       deleteFriend =(friend)=>{
         axios
          .delete(`http://localhost:5000/friends/${friend.id}`)
-         .then(res=> { this.setState({friends: res.data,}) })
+         .then(res=> { this.setState({friends: res.data}) ;
+         this.props.history.push("/friends" );})
          .catch(console.log);
       };
 ////////////////////////////////////////////////////////////////////////
@@ -61,9 +62,9 @@ class App extends Component {
             this.props.history.push("/friends");
           })
           .catch(console.log);
-      }
+      };
 ////////////////////////////////////////////////////////////////////////  
-      render(){
+      render(){ 
         return(
           <div className= 'App'>
             <Route exact path= '/friends' render = {props=>(
@@ -86,8 +87,8 @@ class App extends Component {
              <Route exact path='/friends' render={props => (
                 <FriendsForm
                   {...props}
-                  handleChange={this.inputChange}
-                  addNewFriend={this.addNewFriend}
+                  handleChange={this.handleChange}
+                  addFriend={this.addFriend}
                   newFriend={this.state.newFriend}
                 />
               )}

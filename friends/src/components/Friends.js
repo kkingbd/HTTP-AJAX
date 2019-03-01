@@ -76,7 +76,4 @@ export default class Friends extends React.Component {
             );
         }
     }
-
-
-////////////////////////////////////////////////////////
 }
