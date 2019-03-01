@@ -53,9 +53,13 @@ class App extends Component {
       };
 ////////////////////////////////////////////////////////////////////////
       updateFriend = (friend, id) =>{
+        console.log(friend);
         axios
           .put(`http://localhost:5000/friends/${friend.id}`, friend)
-          .then(res => { this.setState({friends : res.data,}) })
+          .then(res => {
+            this.setState({ friends: res.data });
+            this.props.history.push("/friends");
+          })
           .catch(console.log);
       }
 ////////////////////////////////////////////////////////////////////////  

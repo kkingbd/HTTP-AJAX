@@ -70,7 +70,7 @@ export default class Friends extends React.Component {
                         value={this.state.userInfo.email}
                         name="email"
                         />
-                        <Link to='/friends/'> <button type="submit">Update Friend</button> </Link>
+                        <button type="submit">Update Friend</button>
                     </form>
                 </div>
             );
