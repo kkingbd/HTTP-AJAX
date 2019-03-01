@@ -67,6 +67,15 @@ class App extends Component {
       render(){ 
         return(
           <div className= 'App'>
+          <Route exact path='/friends' render={props => (
+                <FriendsForm
+                  {...props}
+                  handleChange={this.handleChange}
+                  addFriend={this.addFriend}
+                  newFriend={this.state.newFriend}
+                />
+              )}
+            /> 
             <Route exact path= '/friends' render = {props=>(
                 <FriendList 
                     {...props} 
@@ -84,15 +93,7 @@ class App extends Component {
                 />
               )}
             /> 
-             <Route exact path='/friends' render={props => (
-                <FriendsForm
-                  {...props}
-                  handleChange={this.handleChange}
-                  addFriend={this.addFriend}
-                  newFriend={this.state.newFriend}
-                />
-              )}
-            /> 
+             
           </div>
         );
       }
