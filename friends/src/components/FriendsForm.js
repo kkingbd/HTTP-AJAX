@@ -9,7 +9,7 @@ class FriendsForm extends Component {
                         type = 'text'
                         name ='name'
                         placeholder = 'name'
-                        onChange ={this.handleChange}
+                        onChange ={this.props.handleChange}
                         value = {this.props.newFriend.name}
 
                     />
@@ -17,7 +17,7 @@ class FriendsForm extends Component {
                         type = 'number'
                         name ='age'
                         placeholder = 'age'
-                        onChange ={this.handleChange}
+                        onChange ={this.props.handleChange}
                         value = {this.props.newFriend.age}
 
                     />
@@ -25,11 +25,11 @@ class FriendsForm extends Component {
                         type = 'text'
                         name ='email'
                         placeholder = 'email'
-                        onChange ={this.handleChange}
+                        onChange ={this.props.handleChange}
                         value = {this.props.newFriend.email}
 
                     />
-                    <button type="submit" onClick={this.props.addNewFriend}>
+                    <button type="submit" onClick={this.props.addFriend}>
                         Add New Friend
                     </button>
                 </form>  

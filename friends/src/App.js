@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Route, Link, Switch} from 'react-router-dom';
+import {Route} from 'react-router-dom';
 import './App.css';
 import axios from 'axios';
 ////////////////////////////////////////////////////////////////////////
@@ -66,21 +66,30 @@ class App extends Component {
                 <FriendList 
                     {...props} 
                     friends = {this.state.friends}
-                    updateFriend ={this.updateFriend}
                     deleteFriend= {this.deleteFriend}
                  />
               )}
             />
-            {/* <Route exact path="/friends/:id" render={props => (
+            <Route exact path="/friends/:id" render={props => (
                 <Friends
                   {...props}
                   friend={this.state.friends}
                   updateFriend={this.updateFriend}
                   deleteFriend={this.deleteFriend}
-            /> */}
+                />
+              )}
+            /> 
+             <Route exact path='/friends' render={props => (
+                <FriendsForm
+                  {...props}
+                  handleChange={this.inputChange}
+                  addNewFriend={this.addNewFriend}
+                  newFriend={this.state.newFriend}
+                />
+              )}
+            /> 
           </div>
         );
       }
 } 
-
 export default App;
